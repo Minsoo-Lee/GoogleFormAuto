@@ -280,7 +280,7 @@ class MainFrame(wx.Frame):
 
                     print("응답 작성을 완료하였습니다.")
                     time.sleep(2)
-                    self.click_submit_button()
+                    # self.click_submit_button()
                     time.sleep(3)
 
                 except Exception as e:
