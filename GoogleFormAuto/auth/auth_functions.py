@@ -9,7 +9,7 @@ def get_mac_address():
 def auth(username, password):
     mac = get_mac_address()
     res = requests.post('https://tellurium.ejae8319.workers.dev/api/users/auth', json={
-        "project": "네이버자동포스팅-신공간",
+        "project": "구글폼자동완성",
         "username": username,
         "password": password,
         "code": mac,
