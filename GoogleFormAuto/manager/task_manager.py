@@ -238,3 +238,6 @@ class TaskManager:
 
     def set_answer_text(self, text):
         self.answer_text = str(text)
+
+    def init_prior_index(self):
+        self.prior_index = 0
