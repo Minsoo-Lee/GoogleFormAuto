@@ -91,6 +91,6 @@ class PriorItem:
 
     def init_prior_items(self):
         # self.prior_list.clear()
-        self.prior_result.clear()
+        self.prior_result = []
 
 
