@@ -53,8 +53,7 @@ class TaskManager:
             elements = question.find_element(By.CLASS_NAME, 'gTGYUd')
         except:
             return -1
-        print(PriorItem().get_prior_list_idx(self.prior_index))
-        print(PriorItem().get_prior_result_idx(self.prior_index))
+ 
         parent_element = elements.find_element(By.CSS_SELECTOR, '.ssX1Bd.KZt9Tc')
         child_elements = parent_element.find_elements(By.XPATH, "./*")
 
@@ -69,7 +68,6 @@ class TaskManager:
             return -1
         for idx, parent in enumerate(parent_elements):
             answer_index = self.prior_result[self.prior_index][1][idx]
-            print(f"{idx}: {self.prior_result[self.prior_index][1][idx]}")
             # label = parent.get_attribute('aria-label')
             # row.append(label)
             parent.find_elements(By.CSS_SELECTOR, '.Od2TWd.hYsg7c')[answer_index].click()
@@ -115,17 +113,14 @@ class TaskManager:
 
     def radio_options(self, question, title):
         answers = []
-        print(question)
-        print(question.text)
         child_elements = question.find_elements(By.CSS_SELECTOR, '.aDTYNe.snByac.OvPDhc.OIC90c')
-        print(child_elements)
+ 
         # child_elements = question.find_elements(By.CSS_SELECTOR, ".docssharedWizToggleLabeledContainer.ajBQVb.N2RpBe")
         # print(child_elements)
         # child_elements = question.find_elements(By.CLASS_NAME, "docssharedWizToggleLabeledContainer ajBQVb N2RpBe")
         # print(child_elements)
         # 찾은 하위 요소들에 대해 원하는 작업을 수행합니다.
         if not child_elements:
-            print('radio x')
             return -1
         for child in child_elements:
             # 예를 들어, 각 하위 요소의 텍스트를 출력할 수 있습니다.
@@ -133,7 +128,6 @@ class TaskManager:
             answers.append(child.text)
             # if (child.text == "예"):
             #     child.click()
-        print(f"prior_index: {self.prior_index}")
         answer_index = self.prior_result[self.prior_index][1]
         child_elements[answer_index].click()
         if self.prior_index == 46 and answer_index == 1:
@@ -179,9 +173,6 @@ class TaskManager:
 
     def short_invitation_options(self, question, title):
         child_elements = question.find_elements(By.CSS_SELECTOR, '.whsOnd.zHQkBf')
-
-        print(self.prior_index)
-        print(self.prior_result)
         answer_text = self.prior_result[self.prior_index][1]
 
         # 찾은 하위 요소들에 대해 원하는 작업을 수행합니다.

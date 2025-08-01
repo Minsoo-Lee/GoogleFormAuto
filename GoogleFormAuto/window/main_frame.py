@@ -246,7 +246,7 @@ class MainFrame(wx.Frame):
         return button_sizer
 
     def on_execute_button_clicked(self, event):
-        def process_form():
+        def process_form(self):
             for i in range(self.form_data.get_count()):
                 self.prior_items.get_prior_result()
                 self.webdriver.init_chrome()
@@ -256,32 +256,42 @@ class MainFrame(wx.Frame):
                 except Exception as e:
                     print(f"[오류 발생] {e}")
                     print("존재하지 않는 링크입니다. 다시 확인해 주세요.")
-                while True:
-                    try:
-                        # all_questions: list[WebElement] = self.webdriver.get_elements_by_class_EC(10, "Qr7Oae")
-                        all_questions: list[WebElement] = self.webdriver.get_elements_by_class("Qr7Oae")
+                    continue  # 다음 form으로 넘어감
 
-                        for question in all_questions:
-                            # 각 섹션 내의 질문 제목을 찾습니다.
-                            question_title = self.webdriver.get_element_by_css(question, ".M7eMe")
-                            # set_random_answers
-                            self.task_manager.set_prior_answers(question, question_title)
-                            time.sleep(1)
-                        time.sleep(5)
-                    except Exception as e:
-                        print("[예외 이름]", type(e).__name__)
-                        print("[예외 메시지]", str(e))
-                        print("[전체 스택트레이스]")
-                        traceback.print_exc()
-                    if not self.click_next_button_prepare():
-                        break
-                print("응답 작성을 완료하였습니다.")
-                time.sleep(2)
-                self.click_submit_button()
-                time.sleep(3)
-                self.webdriver.driver.quit()
-                self.prior_items.init_prior_items()
-                self.task_manager.init_prior_index()
+                try:
+                    while True:
+                        try:
+                            all_questions: list[WebElement] = self.webdriver.get_elements_by_class("Qr7Oae")
+                            for question in all_questions:
+                                question_title = self.webdriver.get_element_by_css(question, ".M7eMe")
+                                self.task_manager.set_prior_answers(question, question_title)
+                                time.sleep(1)
+                            time.sleep(5)
+                        except Exception as e:
+                            print("[예외 이름]", type(e).__name__)
+                            print("[예외 메시지]", str(e))
+                            print("[전체 스택트레이스]")
+                            traceback.print_exc()
+                            # 예외가 발생했으므로 form 처리 중단 -> for 루프의 다음 i로
+                            raise e
+
+                        if not self.click_next_button_prepare():
+                            break
+
+                    print("응답 작성을 완료하였습니다.")
+                    time.sleep(2)
+                    self.click_submit_button()
+                    time.sleep(3)
+
+                except Exception as e:
+                    print(f"form 처리 중 예외 발생: {e}")
+                    # 드라이버는 여전히 종료하고, 다음 반복으로 넘어감
+
+                finally:
+                    # 어떤 경우든 드라이버 정리 및 상태 초기화
+                    self.webdriver.driver.quit()
+                    self.prior_items.init_prior_items()
+                    self.task_manager.init_prior_index()
 
         threading.Thread(target=process_form, daemon=True).start()
         self.webdriver.driver.quit()
@@ -312,77 +322,75 @@ class MainFrame(wx.Frame):
         self.next_button.Enable(True)
 
     def on_add_body_button_clicked(self, event):
-        for i in range(48):
-            # time.sleep(1)
-            if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
-                    and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
-                min_val = self.body_list[self.index].get_min_value()
-                max_val = self.body_list[self.index].get_max_value()
+        # for i in range(48):
+        #     # time.sleep(1)
+        #     if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
+        #             and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
+        #         min_val = self.body_list[self.index].get_min_value()
+        #         max_val = self.body_list[self.index].get_max_value()
 
-                # 1) 비어있는지 확인
-                if not min_val or not max_val:
-                    wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
-                    return
+        #         # 1) 비어있는지 확인
+        #         if not min_val or not max_val:
+        #             wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
+        #             return
 
-                # 2) 숫자인지 확인
-                if not (min_val.isdigit() and max_val.isdigit()):
-                    wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
-                    return
+        #         # 2) 숫자인지 확인
+        #         if not (min_val.isdigit() and max_val.isdigit()):
+        #             wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
+        #             return
 
-                # 3) 정수 변환
-                min_val = int(min_val)
-                max_val = int(max_val)
+        #         # 3) 정수 변환
+        #         min_val = int(min_val)
+        #         max_val = int(max_val)
 
-                # 4) 최소값 < 최대값 조건 확인
-                if min_val >= max_val:
-                    wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
-                    return
+        #         # 4) 최소값 < 최대값 조건 확인
+        #         if min_val >= max_val:
+        #             wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
+        #             return
 
-            # prior_items에 현재 우선순위 저장
-            self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
-            self.index += 1
+        #     # prior_items에 현재 우선순위 저장
+        #     self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
+        #     self.index += 1
 
-            if self.index >= self.qa_items.get_qa_length():
-                wx.MessageBox("마지막 질문입니다.", "알림", wx.OK | wx.ICON_INFORMATION)
+        #     if self.index >= self.qa_items.get_qa_length():
+        #         wx.MessageBox("마지막 질문입니다.", "알림", wx.OK | wx.ICON_INFORMATION)
+        #         return
+
+        #     # 다음 질문 인덱스
+        #     self.add_body()  # 다시 호출
+
+        if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
+                and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
+            min_val = self.body_list[self.index].get_min_value()
+            max_val = self.body_list[self.index].get_max_value()
+        
+            # 1) 비어있는지 확인
+            if not min_val or not max_val:
+                wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
                 return
-
-            # 다음 질문 인덱스
-            self.add_body()  # 다시 호출
-
-
-        #=========================================
-        # if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
-        #         and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
-        #     min_val = self.body_list[self.index].get_min_value()
-        #     max_val = self.body_list[self.index].get_max_value()
-        #
-        #     # 1) 비어있는지 확인
-        #     if not min_val or not max_val:
-        #         wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
-        #         return
-        #
-        #     # 2) 숫자인지 확인
-        #     if not (min_val.isdigit() and max_val.isdigit()):
-        #         wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
-        #         return
-        #
-        #     # 3) 정수 변환
-        #     min_val = int(min_val)
-        #     max_val = int(max_val)
-        #
-        #     # 4) 최소값 < 최대값 조건 확인
-        #     if min_val >= max_val:
-        #         wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
-        #         return
-        #
-        # # prior_items에 현재 우선순위 저장
-        # self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
-        #
-        # self.index += 1
-        # print(self.qa_items.get_qa_length())
-        #
-        # # 다음 질문 인덱스
-        # self.add_body()  # 다시 호출
+        
+            # 2) 숫자인지 확인
+            if not (min_val.isdigit() and max_val.isdigit()):
+                wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
+                return
+        
+            # 3) 정수 변환
+            min_val = int(min_val)
+            max_val = int(max_val)
+        
+            # 4) 최소값 < 최대값 조건 확인
+            if min_val >= max_val:
+                wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
+                return
+        
+        # prior_items에 현재 우선순위 저장
+        self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
+        
+        self.index += 1
+        print(self.qa_items.get_qa_length())
+        
+        # 다음 질문 인덱스
+        self.add_body()  # 다시 호출
 
     def click_submit_button(self):
         # button_list = self.webdriver.get_elements_by_css(None, ".uArJ5e.UQuaGc.YhQJj.zo8FOc.ctEux")
