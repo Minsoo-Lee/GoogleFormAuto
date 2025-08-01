@@ -89,4 +89,8 @@ class PriorItem:
     def get_prior_result_list(self):
         return self.prior_result
 
+    def init_prior_items(self):
+        self.prior_list.clear()
+        self.prior_result.clear()
+
 

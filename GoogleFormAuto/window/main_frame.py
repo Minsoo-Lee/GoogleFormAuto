@@ -276,6 +276,7 @@ class MainFrame(wx.Frame):
                     if not self.click_next_button_prepare():
                         break
                 print("응답 작성을 완료하였습니다.")
+                time.sleep(2)
                 self.click_submit_button()
 
                 self.webdriver.driver.quit()
@@ -383,7 +384,7 @@ class MainFrame(wx.Frame):
 
     def click_submit_button(self):
         button_list = self.webdriver.get_elements_by_css(None, ".uArJ5e.UQuaGc.YhQJj.zo8FOc.ctEux")
-        time.sleep(1)
+        time.sleep(3)
         for button in button_list:
             spans = self.webdriver.get_elements_by_css(button, '.NPEfkd.RveJvd.snByac')
             for span in spans:
