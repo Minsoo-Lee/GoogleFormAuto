@@ -309,77 +309,77 @@ class MainFrame(wx.Frame):
         self.next_button.Enable(True)
 
     def on_add_body_button_clicked(self, event):
-        # for i in range(48):
-        #     # time.sleep(1)
-        #     if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
-        #             and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
-        #         min_val = self.body_list[self.index].get_min_value()
-        #         max_val = self.body_list[self.index].get_max_value()
-        #
-        #         # 1) 비어있는지 확인
-        #         if not min_val or not max_val:
-        #             wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
-        #             return
-        #
-        #         # 2) 숫자인지 확인
-        #         if not (min_val.isdigit() and max_val.isdigit()):
-        #             wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
-        #             return
-        #
-        #         # 3) 정수 변환
-        #         min_val = int(min_val)
-        #         max_val = int(max_val)
-        #
-        #         # 4) 최소값 < 최대값 조건 확인
-        #         if min_val >= max_val:
-        #             wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
-        #             return
-        #
-        #     # prior_items에 현재 우선순위 저장
-        #     self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
-        #     self.index += 1
-        #
-        #     if self.index >= self.qa_items.get_qa_length():
-        #         wx.MessageBox("마지막 질문입니다.", "알림", wx.OK | wx.ICON_INFORMATION)
-        #         return
-        #
-        #     # 다음 질문 인덱스
-        #     self.add_body()  # 다시 호출
+        for i in range(48):
+            # time.sleep(1)
+            if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
+                    and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
+                min_val = self.body_list[self.index].get_min_value()
+                max_val = self.body_list[self.index].get_max_value()
+
+                # 1) 비어있는지 확인
+                if not min_val or not max_val:
+                    wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
+                    return
+
+                # 2) 숫자인지 확인
+                if not (min_val.isdigit() and max_val.isdigit()):
+                    wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
+                    return
+
+                # 3) 정수 변환
+                min_val = int(min_val)
+                max_val = int(max_val)
+
+                # 4) 최소값 < 최대값 조건 확인
+                if min_val >= max_val:
+                    wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
+                    return
+
+            # prior_items에 현재 우선순위 저장
+            self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
+            self.index += 1
+
+            if self.index >= self.qa_items.get_qa_length():
+                wx.MessageBox("마지막 질문입니다.", "알림", wx.OK | wx.ICON_INFORMATION)
+                return
+
+            # 다음 질문 인덱스
+            self.add_body()  # 다시 호출
 
 
         #=========================================
-        if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
-                and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
-            min_val = self.body_list[self.index].get_min_value()
-            max_val = self.body_list[self.index].get_max_value()
-
-            # 1) 비어있는지 확인
-            if not min_val or not max_val:
-                wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
-                return
-
-            # 2) 숫자인지 확인
-            if not (min_val.isdigit() and max_val.isdigit()):
-                wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
-                return
-
-            # 3) 정수 변환
-            min_val = int(min_val)
-            max_val = int(max_val)
-
-            # 4) 최소값 < 최대값 조건 확인
-            if min_val >= max_val:
-                wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
-                return
-
-        # prior_items에 현재 우선순위 저장
-        self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
-
-        self.index += 1
-        print(self.qa_items.get_qa_length())
-
-        # 다음 질문 인덱스
-        self.add_body()  # 다시 호출
+        # if self.qa_items.get_qa_index(self.index)[0] == AnswerType.SHORT_INVIT\
+        #         and self.body_list[self.index].get_type() == ShortInvitType.MIN_MAX:
+        #     min_val = self.body_list[self.index].get_min_value()
+        #     max_val = self.body_list[self.index].get_max_value()
+        #
+        #     # 1) 비어있는지 확인
+        #     if not min_val or not max_val:
+        #         wx.MessageBox("최소값과 최대값을 모두 입력해주세요.", "오류", wx.OK | wx.ICON_ERROR)
+        #         return
+        #
+        #     # 2) 숫자인지 확인
+        #     if not (min_val.isdigit() and max_val.isdigit()):
+        #         wx.MessageBox("최소값과 최대값은 정수만 입력할 수 있습니다.", "오류", wx.OK | wx.ICON_ERROR)
+        #         return
+        #
+        #     # 3) 정수 변환
+        #     min_val = int(min_val)
+        #     max_val = int(max_val)
+        #
+        #     # 4) 최소값 < 최대값 조건 확인
+        #     if min_val >= max_val:
+        #         wx.MessageBox("최소값은 최대값보다 작아야 합니다.", "오류", wx.OK | wx.ICON_ERROR)
+        #         return
+        #
+        # # prior_items에 현재 우선순위 저장
+        # self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
+        #
+        # self.index += 1
+        # print(self.qa_items.get_qa_length())
+        #
+        # # 다음 질문 인덱스
+        # self.add_body()  # 다시 호출
 
     def click_submit_button(self):
         button_list = self.webdriver.get_elements_by_css(None, ".uArJ5e.UQuaGc.YhQJj.zo8FOc.ctEux")
