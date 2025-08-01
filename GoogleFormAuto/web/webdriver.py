@@ -35,6 +35,16 @@ class WebDriver:
         self.driver = webdriver.Chrome(options=chrome_options)
         WebDriver._initialized = True
 
+    def click_element_by_xpath(self, xpath):
+        try:
+            time.sleep(2)
+            self.driver.find_element(By.XPATH, xpath).click()
+            print("button O")
+        except:
+            print("button X")
+            return
+
+
     def get_elements_by_class_EC(self, timeout, path):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_all_elements_located((By.CLASS_NAME, path))
