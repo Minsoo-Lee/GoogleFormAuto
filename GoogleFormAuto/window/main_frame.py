@@ -279,6 +279,9 @@ class MainFrame(wx.Frame):
                 self.click_submit_button()
                 time.sleep(1)
                 self.webdriver.driver.quit()
+                self.webdriver.driver.quit()
+                self.prior_items.init_prior_items()
+                self.task_manager.init_prior_index()
 
         threading.Thread(target=process_form, daemon=True).start()
         self.webdriver.driver.quit()
@@ -387,7 +390,7 @@ class MainFrame(wx.Frame):
         for button in button_list:
             spans = self.webdriver.get_elements_by_css(button, '.NPEfkd.RveJvd.snByac')
             for span in spans:
-                if span.text == "제출":
+                if span.text.strip() == "제출":
                     button.click()
 
     def click_next_button_prepare(self):
