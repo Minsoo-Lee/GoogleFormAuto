@@ -30,12 +30,10 @@ class ShortInvitFrame(BodyFrame):
         # 최소값
         min_label = wx.StaticText(self.body_panel, label="최소값")
         min_input = wx.TextCtrl(self.body_panel, size=wx.Size(80, -1))
-        min_input.SetValue("150")
 
         # 최대값
         max_label = wx.StaticText(self.body_panel, label="최대값")
         max_input = wx.TextCtrl(self.body_panel, size=wx.Size(80, -1))
-        max_input.SetValue("180")
 
 
         # 추가 (간격 조정: min_input과 max_label 사이에만 큰 간격)
