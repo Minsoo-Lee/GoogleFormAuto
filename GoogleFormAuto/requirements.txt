@@ -1,0 +1,2 @@
+wxpython~=4.2.3
+selenium~=4.32.0
