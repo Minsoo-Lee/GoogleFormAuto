@@ -157,7 +157,7 @@ class MainFrame(wx.Frame):
                     break
             print("문제 및 정답을 모두 수집하였습니다.")
             wx.CallAfter(self.add_body)
-            # self.webdriver.driver.quit()
+            self.webdriver.driver.quit()
 
         threading.Thread(target=process_form, daemon=True).start()
 
@@ -249,7 +249,7 @@ class MainFrame(wx.Frame):
         self.prior_items.get_prior_result()
         def process_form():
             for i in range(self.form_data.get_count()):
-                # self.webdriver.init_chrome()
+                self.webdriver.init_chrome()
                 form_url = self.form_data.get_url()
                 try:
                     self.webdriver.enter_url(form_url)
@@ -278,7 +278,7 @@ class MainFrame(wx.Frame):
                 print("응답 작성을 완료하였습니다.")
                 self.click_submit_button()
 
-                # self.webdriver.driver.quit()
+                self.webdriver.driver.quit()
 
         threading.Thread(target=process_form, daemon=True).start()
         self.webdriver.driver.quit()
