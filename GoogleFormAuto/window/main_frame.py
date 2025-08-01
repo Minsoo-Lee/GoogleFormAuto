@@ -391,7 +391,10 @@ class MainFrame(wx.Frame):
             spans = self.webdriver.get_elements_by_css(button, '.NPEfkd.RveJvd.snByac')
             for span in spans:
                 if span.text == "제출":
+                    print("버튼 찾음")
                     button.click()
+
+        print("버튼 찾음 X")
 
     def click_next_button_prepare(self):
         is_next_button = False
