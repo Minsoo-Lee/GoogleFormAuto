@@ -23,8 +23,8 @@ from window.body.short_invit_frame import ShortInvitFrame
 from window.elements import Elements
 from window.prepare_frame import PrepareFrame
 
-BUTTON_SIZE = wx.Size(400, 20)
-FORM_BUTTON_SIZE = wx.Size(800, 20)
+BUTTON_SIZE = wx.Size(400, 40)
+FORM_BUTTON_SIZE = wx.Size(800, 40)
 WINDOW_SIZE = wx.Size(600, 800)
 
 class MainFrame(wx.Frame):
