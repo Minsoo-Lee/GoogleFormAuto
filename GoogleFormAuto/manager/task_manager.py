@@ -192,6 +192,7 @@ class TaskManager:
 
         if self.is_phone_needed:
             child_elements[0].send_keys(answer_text)
+            self.is_phone_needed = False
         self.prior_index += 1
         return 1
 
