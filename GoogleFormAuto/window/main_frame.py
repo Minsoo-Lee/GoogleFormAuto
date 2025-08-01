@@ -384,13 +384,15 @@ class MainFrame(wx.Frame):
         self.add_body()  # 다시 호출
 
     def click_submit_button(self):
-        button_list = self.webdriver.get_elements_by_css(None, ".uArJ5e.UQuaGc.YhQJj.zo8FOc.ctEux")
-        time.sleep(1)
-        for button in button_list:
-            spans = self.webdriver.get_elements_by_css(button, '.NPEfkd.RveJvd.snByac')
-            for span in spans:
-                if span.text.strip() == "제출":
-                    button.click()
+        # button_list = self.webdriver.get_elements_by_css(None, ".uArJ5e.UQuaGc.YhQJj.zo8FOc.ctEux")
+        # time.sleep(1)
+        # for button in button_list:
+        #     spans = self.webdriver.get_elements_by_css(button, '.NPEfkd.RveJvd.snByac')
+        #     for span in spans:
+        #         if span.text.strip() == "제출":
+        #             button.click()
+        self.webdriver.click_element_by_xpath(
+            "/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div[1]/div[2]")
 
     def click_next_button_prepare(self):
         is_next_button = False

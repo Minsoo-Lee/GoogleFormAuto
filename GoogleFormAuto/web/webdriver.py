@@ -61,6 +61,15 @@ class WebDriver:
             EC.element_to_be_clickable(element)
         ).click()
 
+    def click_element_by_xpath(self, xpath):
+        try:
+            time.sleep(2)
+            self.driver.find_element(By.XPATH, xpath).click()
+            print("button O")
+        except:
+            print("button X")
+            return
+
     def get_driver(self):
         return self.driver
 
