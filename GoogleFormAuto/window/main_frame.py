@@ -280,6 +280,8 @@ class MainFrame(wx.Frame):
                 self.click_submit_button()
                 time.sleep(3)
                 self.webdriver.driver.quit()
+                self.prior_items.init_prior_items()
+                self.task_manager.init_prior_index()
 
         threading.Thread(target=process_form, daemon=True).start()
         self.webdriver.driver.quit()
