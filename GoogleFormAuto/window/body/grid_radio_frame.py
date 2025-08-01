@@ -10,7 +10,7 @@ class GridRadioFrame(BodyFrame):
         col_num = len(answer[0]) + 1
         row_num = len(answer[1]) + 1
         print(f"col_num: {col_num}, row_num: {row_num}")
-        choice_list = [str(i) for i in range(1, col_num - 1)]
+        choice_list = [str(i) for i in range(1, col_num)]
 
         # grid_box 제거 (테두리 하나만)
         grid_panel = wx.Panel(self.body_panel, wx.ID_ANY)
@@ -40,6 +40,8 @@ class GridRadioFrame(BodyFrame):
                     style=wx.CB_READONLY,
                     size=wx.Size(40, -1)
                 )
+                if choice_list:  # 리스트가 비어있지 않다면
+                    combo_box.SetSelection(0)  # 첫 번째 값 선택
                 tmp_list.append(combo_box)
                 grid_sizer.Add(combo_box, 0, wx.ALIGN_CENTER)  # EXPAND 제거, 가운데 정렬
             self.combo_list.append(tmp_list)
