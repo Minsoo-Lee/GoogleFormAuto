@@ -25,7 +25,7 @@ from window.prepare_frame import PrepareFrame
 
 BUTTON_SIZE = wx.Size(400, 30)
 FORM_BUTTON_SIZE = wx.Size(800, 30)
-WINDOW_SIZE = wx.Size(600, 800)
+WINDOW_SIZE = wx.Size(600, 1000)
 
 class MainFrame(wx.Frame):
     def __init__(self):

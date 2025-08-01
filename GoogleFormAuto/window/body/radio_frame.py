@@ -40,7 +40,7 @@ class RadioFrame(BodyFrame):
         grid_sizer.AddGrowableCol(0, 1)
 
         for choice in answer:
-            label = wx.StaticText(grid_panel, wx.ID_ANY, choice, size=wx.Size(200, -1))
+            label = wx.StaticText(grid_panel, wx.ID_ANY, choice, size=wx.Size(400, -1))
             grid_sizer.Add(label, 0, wx.ALIGN_CENTER_VERTICAL)
             combo_box = wx.ComboBox(
                 grid_panel,
