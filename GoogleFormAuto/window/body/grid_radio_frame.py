@@ -9,6 +9,7 @@ class GridRadioFrame(BodyFrame):
     def build_answer_section(self, answer=None):
         col_num = len(answer[0]) + 1
         row_num = len(answer[1]) + 1
+        print(f"col_num: {col_num}, row_num: {row_num}")
         choice_list = [str(i) for i in range(1, col_num - 1)]
 
         # grid_box 제거 (테두리 하나만)
