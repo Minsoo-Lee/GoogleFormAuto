@@ -60,6 +60,8 @@ class PriorItem:
 
     def get_prior_result_radio(self, item):
         result = [idx for idx, rank in enumerate(item[1]) for _ in range(int(rank))]
+        print(result)
+        print(random.choice(result))
         self.prior_result.append([AnswerType.RADIO, random.choice(result)])
 
     def get_prior_result_radio2(self, item):
