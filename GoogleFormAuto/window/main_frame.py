@@ -246,7 +246,7 @@ class MainFrame(wx.Frame):
         return button_sizer
 
     def on_execute_button_clicked(self, event):
-        def process_form(self):
+        def process_form():
             for i in range(self.form_data.get_count()):
                 self.prior_items.get_prior_result()
                 self.webdriver.init_chrome()
