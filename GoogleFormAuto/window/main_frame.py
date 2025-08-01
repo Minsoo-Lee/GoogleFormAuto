@@ -278,7 +278,7 @@ class MainFrame(wx.Frame):
                 print("응답 작성을 완료하였습니다.")
                 time.sleep(2)
                 self.click_submit_button()
-
+                time.sleep(3)
                 self.webdriver.driver.quit()
 
         threading.Thread(target=process_form, daemon=True).start()
