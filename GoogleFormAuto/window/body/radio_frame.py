@@ -46,7 +46,7 @@ class RadioFrame(BodyFrame):
                 grid_panel,
                 choices=choice_list,
                 style=wx.CB_READONLY,
-                size=wx.Size(40, -1)
+                size=wx.Size(40, -1),
             )
             combo_box.SetSelection(1)
             grid_sizer.Add(combo_box, 0, wx.ALIGN_CENTER)  # EXPAND 제거, 가운데 정렬

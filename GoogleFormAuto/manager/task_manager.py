@@ -175,11 +175,15 @@ class TaskManager:
         child_elements = question.find_elements(By.CSS_SELECTOR, '.whsOnd.zHQkBf')
         answer_text = self.prior_result[self.prior_index][1]
 
+        print(f"answer_text: {answer_text}")
+
         # 찾은 하위 요소들에 대해 원하는 작업을 수행합니다.
         if not child_elements:
-            # print('short invitation x')
+            print('short invitation x')
             return -1
-        # print('is short invitation')
+        print('is short invitation')
+
+        print(f"is_phone_needed: {self.is_phone_needed}")
 
         if self.is_phone_needed:
             child_elements[0].send_keys(answer_text)
