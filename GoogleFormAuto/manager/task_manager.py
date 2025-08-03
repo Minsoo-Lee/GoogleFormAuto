@@ -179,14 +179,13 @@ class TaskManager:
 
         # 찾은 하위 요소들에 대해 원하는 작업을 수행합니다.
         if not child_elements:
-            print('short invitation x')
             return -1
-        print('is short invitation')
 
-        print(f"is_phone_needed: {self.is_phone_needed}")
+        print(child_elements)
 
         if self.is_phone_needed:
             child_elements[0].send_keys(answer_text)
+        print("done")
         self.is_phone_needed = True
         self.prior_index += 1
         return 1
