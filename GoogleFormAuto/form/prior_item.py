@@ -36,7 +36,8 @@ class PriorItem:
         print(self.prior_list)
 
     def print_prior_result(self):
-        print(self.prior_result)
+        for result in self.prior_result:
+            print(result)
 
     def get_prior_list_length(self):
         return len(self.prior_list)
@@ -91,6 +92,5 @@ class PriorItem:
 
     def init_prior_items(self):
         # self.prior_list.clear()
-        self.prior_result = []
-
+        self.prior_result.clear()
 

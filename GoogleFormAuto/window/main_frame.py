@@ -402,7 +402,7 @@ class MainFrame(wx.Frame):
         if self.index == self.qa_items.get_qa_length():
             self.execute_button.Enable(True)
             self.next_button.Enable(False)
-            wx.MessageBox("마지막 문항입니다.", "오류", wx.OK | wx.ICON_ERROR)
+            wx.MessageBox("마지막 문항입니다.", "알림", wx.OK | wx.ICON_ASTERISK)
             return
         
         # 다음 질문 인덱스
