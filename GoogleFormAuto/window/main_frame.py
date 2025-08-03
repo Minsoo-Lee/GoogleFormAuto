@@ -259,6 +259,7 @@ class MainFrame(wx.Frame):
         def process_form():
             for i in range(self.form_data.get_count()):
                 self.prior_items.get_prior_result()
+                self.prior_items.print_prior_result()
                 self.webdriver.init_chrome()
                 form_url = self.form_data.get_url()
                 try:
