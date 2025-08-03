@@ -139,25 +139,35 @@ class MainFrame(wx.Frame):
             except Exception as e:
                 print(f"[오류 발생] {e}")
                 print("존재하지 않는 링크입니다. 다시 확인해 주세요.")
-            while True:
-                try:
-                    # all_questions: list[WebElement] = self.webdriver.get_elements_by_class_EC(10, "Qr7Oae")
-                    all_questions: list[WebElement] = self.webdriver.get_elements_by_class("Qr7Oae")
+            try:
+                while True:
+                    try:
+                        all_questions: list[WebElement] = self.webdriver.get_elements_by_class("Qr7Oae")
+                        for question in all_questions:
+                            question_title = self.webdriver.get_element_by_css(question, ".M7eMe")
+                            self.prep_manager.set_random_answers(question, question_title)
+                            time.sleep(1)
+                        time.sleep(5)
+                    except Exception as e:
+                        print("[예외 이름]", type(e).__name__)
+                        print("[예외 메시지]", str(e))
+                        print("[전체 스택트레이스]")
+                        traceback.print_exc()
+                        # 예외가 발생했으므로 form 처리 중단 -> for 루프의 다음 i로
+                        raise e
 
-                    for question in all_questions:
-                        # 각 섹션 내의 질문 제목을 찾습니다.
-                        question_title = self.webdriver.get_element_by_css(question, ".M7eMe")
-                        # set_random_answers
-                        self.prep_manager.set_random_answers(question, question_title)
-                        time.sleep(1)
-                    time.sleep(2)
-                except Exception as e:
-                    print(type(e).__name__)
-                if not self.click_next_button_prepare():
-                    break
-            print("문제 및 정답을 모두 수집하였습니다.")
-            wx.CallAfter(self.add_body)
-            self.webdriver.driver.quit()
+                    if not self.click_next_button_prepare():
+                        break
+
+                print("문제 및 정답을 모두 수집하였습니다.")
+                wx.CallAfter(self.add_body)
+            except Exception as e:
+                print(f"form 처리 중 예외 발생: {e}")
+                # 드라이버는 여전히 종료하고, 다음 반복으로 넘어감
+
+            finally:
+                # 어떤 경우든 드라이버 정리 및 상태 초기화
+                self.webdriver.driver.quit()
 
         threading.Thread(target=process_form, daemon=True).start()
 
@@ -195,9 +205,9 @@ class MainFrame(wx.Frame):
         self.panel.Layout()
         self.Layout()
 
-        if self.index == self.qa_items.get_qa_length() - 1:
-            self.execute_button.Enable(True)
-            self.next_button.Enable(False)
+        # if self.index == self.qa_items.get_qa_length() - 1:
+        #     self.execute_button.Enable(True)
+        #     self.next_button.Enable(False)
 
     def add_button(self, panel):
         # 세로 전체 배치
@@ -387,7 +397,13 @@ class MainFrame(wx.Frame):
         self.prior_items.add_prior_list(self.body_list[self.index].save_prior_list())
         
         self.index += 1
-        print(self.qa_items.get_qa_length())
+
+        # 수정
+        if self.index == self.qa_items.get_qa_length():
+            self.execute_button.Enable(True)
+            self.next_button.Enable(False)
+            wx.MessageBox("마지막 문항입니다.", "오류", wx.OK | wx.ICON_ERROR)
+            return
         
         # 다음 질문 인덱스
         self.add_body()  # 다시 호출
